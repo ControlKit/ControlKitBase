@@ -7,7 +7,7 @@
 import Foundation
 import UIKit
 public class ImageHelper {
-    static var resolvedBundle: Bundle {
+    public static var resolvedBundle: Bundle {
 #if SWIFT_PACKAGE
         return Bundle.module
 #else
@@ -15,7 +15,7 @@ public class ImageHelper {
 #endif
     }
     
-    static func image(_ name: String) -> UIImage? {
+    public static func image(_ name: String) -> UIImage? {
         return UIImage(named: name,
                        in: resolvedBundle,
                        compatibleWith: nil)
