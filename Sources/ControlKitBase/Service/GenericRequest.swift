@@ -25,3 +25,13 @@ public struct HTTPMethod: RawRepresentable, Equatable, Hashable {
         self.rawValue = rawValue
     }
 }
+
+public var CKDeviceUUID: String {
+    if let deviceID = UserDefaults.standard.string(forKey: controlKit_DeviceUUIDKey) {
+        return deviceID
+    } else {
+        let uuid = UUID().uuidString
+        UserDefaults.standard.set(uuid, forKey: controlKit_DeviceUUIDKey)
+        return uuid
+    }
+}

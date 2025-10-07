@@ -17,13 +17,7 @@ public struct ActionRequest: GenericRequest {
     public var httpMethod: HTTPMethod = .post
     public var applicationVersion: String = Bundle.main.bundleIdentifier ?? String()
     public var deviceUUID: String {
-        if let deviceID = UserDefaults.standard.string(forKey: controlKit_DeviceUUIDKey) {
-            return deviceID
-        } else {
-            let uuid = UUID().uuidString
-            UserDefaults.standard.set(uuid, forKey: controlKit_DeviceUUIDKey)
-            return uuid
-        }
+        return CKDeviceUUID
     }
     
     public var headers: [String : String] {
