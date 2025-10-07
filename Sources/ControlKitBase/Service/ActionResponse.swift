@@ -12,3 +12,9 @@ public struct ActionModel: Codable {
     public let id: String
 }
 
+
+public typealias LocalString = [LocalizedText]
+public struct LocalizedText: Codable {
+    public let language: String?
+    public let content: String?
+}
