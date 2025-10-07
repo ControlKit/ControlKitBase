@@ -6,7 +6,7 @@ public protocol GenericRequest {
     var extraParameter: String? { get set }
     var httpMethod: HTTPMethod { get }
     var headers: [String: String] { get }
-    var body: [String: String] { get set }
+    var body: [String: String] { get }
 }
 
 public struct HTTPMethod: RawRepresentable, Equatable, Hashable {

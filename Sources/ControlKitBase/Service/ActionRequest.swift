@@ -8,7 +8,6 @@ import Foundation
 let controlKit_DeviceUUIDKey = "deviceUUID"
 public struct ActionRequest: GenericRequest {
     public var httpMethod: HTTPMethod
-    public var body: [String : String]
     public var route: ControlKitItem
     public var itemId: String?
     public var extraParameter: String?
@@ -34,7 +33,7 @@ public struct ActionRequest: GenericRequest {
                 "x-device-uuid": self.deviceUUID]
     }
     
-    var params: [String: String] {
+    public var body: [String: String] {
         return ["action": action.rawValue]
     }
 }
