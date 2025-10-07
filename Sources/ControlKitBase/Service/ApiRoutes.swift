@@ -12,7 +12,7 @@ enum ApiRoutes: String {
     case launchAlert = "api/launch-alert"
     case inboxView = "api/inbox-view"
     case voteView = "api/vote-view"
-    case netPromoterScore = "api/net-promoter-score"
+    case netPromoterScore = "api/nps"
     case contactSupport = "api/contact-support"
     case agreement = "api/terms-and-conditions"
     
