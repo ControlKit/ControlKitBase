@@ -8,7 +8,7 @@
 import Foundation
 enum ApiRoutes: String {
     case baseUrl = "https://tauri.ir/"
-    case forceUpdate = "api/force-update"
+    case forceUpdate = "api/force-updates"
     case launchAlert = "api/launch-alert"
     case inboxView = "api/inbox-view"
     case voteView = "api/vote-view"

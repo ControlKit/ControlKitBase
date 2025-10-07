@@ -42,7 +42,7 @@ public class GenericService: BaseService,
         }
         
         let (data, response) = try await URLSession.shared.data(for: req)
-        if (response as? HTTPURLResponse)?.statusCode ?? 0 >= 200 ||
+        if (response as? HTTPURLResponse)?.statusCode ?? 0 >= 200 &&
             (response as? HTTPURLResponse)?.statusCode ?? 0 < 300 {
             let result: Result<M> = BaseSerializer.shared.serialize(data: data)
             return result
