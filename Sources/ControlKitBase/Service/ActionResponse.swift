@@ -17,4 +17,8 @@ public typealias LocalString = [LocalizedText]
 public struct LocalizedText: Codable {
     public let language: String?
     public let content: String?
+    public init(language: String?, content: String?) {
+        self.language = language
+        self.content = content
+    }
 }
