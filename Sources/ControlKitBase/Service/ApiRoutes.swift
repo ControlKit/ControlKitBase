@@ -11,7 +11,7 @@ enum ApiRoutes: String {
     case forceUpdate = "api/force-updates"
     case launchAlert = "api/launch-alert"
     case inboxView = "api/inbox-view"
-    case voteView = "api/vote-view"
+    case voteView = "api/votes"
     case netPromoterScore = "api/nps"
     case contactSupport = "api/contact-support"
     case agreement = "api/terms-and-conditions"
