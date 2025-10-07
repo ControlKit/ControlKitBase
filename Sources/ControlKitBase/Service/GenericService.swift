@@ -6,9 +6,6 @@ public class GenericService: BaseService,
     }
     public func execute<T: GenericRequest, M: Codable>(request: T) async throws -> Result<M> {
         var route = getServiceRoute(type: request.route)
-        if route.contains("{item-id}") {
-            route = route.replacingOccurrences(of: request.itemId ?? "", with: "{item-id}")
-        }
         if let extraParameter = request.extraParameter {
             route = route + "/\(extraParameter)"
         }
