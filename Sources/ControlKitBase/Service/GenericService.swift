@@ -2,6 +2,8 @@ import Foundation
 
 public class GenericService: BaseService,
                       GenericServiceProtocol {
+    public override init() {
+    }
     public func execute<T: GenericRequest, M: Codable>(request: T) async throws -> Result<M> {
         var route = getServiceRoute(type: request.route)
         if route.contains("{item-id}") {
