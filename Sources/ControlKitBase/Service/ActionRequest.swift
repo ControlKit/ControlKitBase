@@ -7,14 +7,14 @@
 import Foundation
 let controlKit_DeviceUUIDKey = "deviceUUID"
 public struct ActionRequest: GenericRequest {
-    public var httpMethod: HTTPMethod
     public var route: ControlKitItem
-    public var itemId: String?
-    public var extraParameter: String?
     public var appId: String
     public var sdkVersion: String
     public var action: ControlKitAction
+    public var itemId: String?
+    public var extraParameter: String?
     
+    public var httpMethod: HTTPMethod = .post
     public var applicationVersion: String = Bundle.main.bundleIdentifier ?? String()
     public var deviceUUID: String {
         if let deviceID = UserDefaults.standard.string(forKey: controlKit_DeviceUUIDKey) {
@@ -35,6 +35,24 @@ public struct ActionRequest: GenericRequest {
     
     public var body: [String: String] {
         return ["action": action.rawValue]
+    }
+    
+    public init(
+        route: ControlKitItem,
+        appId: String,
+        sdkVersion: String,
+        action: ControlKitAction,
+        itemId: String? = nil,
+        extraParameter: String? = nil,
+        httpMethod: HTTPMethod = .post
+    ) {
+        self.route = route
+        self.appId = appId
+        self.sdkVersion = sdkVersion
+        self.action = action
+        self.itemId = itemId
+        self.extraParameter = extraParameter
+        self.httpMethod = httpMethod
     }
 }
 
