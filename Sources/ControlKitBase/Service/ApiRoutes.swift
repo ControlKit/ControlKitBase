@@ -14,9 +14,19 @@ enum ApiRoutes: String {
     case voteView = "api/vote-view/"
     case netPromoterScore = "api/net-promoter-score/"
     case contactSupport = "api/contact-support/"
-    case termsAndConditions = "api/terms-and-conditions/"
+    case agreement = "api/terms-and-conditions/"
     
     var fullUrl: String {
         return ApiRoutes.baseUrl.rawValue + self.rawValue
     }
+}
+
+public enum ControlKitItem {
+    case force_update
+    case launch_alert
+    case vote
+    case agreement
+    case contact_support
+    case nps
+    case inbox
 }

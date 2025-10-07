@@ -3,14 +3,14 @@ import Foundation
 class GenericService: BaseService,
                       GenericServiceProtocol {
     func execute<T: GenericRequest, M: Codable>(request: T) async throws -> Result<M> {
-        var route = request.route
+        var route = getServiceRoute(type: request.route)
         if route.contains("{item-id}") {
             route = route.replacingOccurrences(of: request.itemId ?? "", with: "{item-id}")
         }
         if let extraParameter = request.extraParameter {
             route = route + "/\(extraParameter)"
         }
-        guard var urlComponents = URLComponents(string: request.route) else {
+        guard var urlComponents = URLComponents(string: route) else {
             print("Invalid URL")
             let errorModel = NSError(domain: "Invalid URL", code: 11)
             let result = Result<M>.failure(errorModel)
@@ -53,4 +53,25 @@ class GenericService: BaseService,
             return result
         }
     }
+    
+    private func getServiceRoute(type: ControlKitItem) -> String {
+        switch type {
+        case .agreement:
+            return ApiRoutes.baseUrl.rawValue + ApiRoutes.agreement.rawValue
+        case .inbox:
+            return ApiRoutes.baseUrl.rawValue + ApiRoutes.inboxView.rawValue
+        case .force_update:
+            return ApiRoutes.baseUrl.rawValue + ApiRoutes.forceUpdate.rawValue
+        case .launch_alert:
+            return ApiRoutes.baseUrl.rawValue + ApiRoutes.launchAlert.rawValue
+        case .nps:
+            return ApiRoutes.baseUrl.rawValue + ApiRoutes.netPromoterScore.rawValue
+        case .vote:
+            return ApiRoutes.baseUrl.rawValue + ApiRoutes.voteView.rawValue
+        case .contact_support:
+            return ApiRoutes.baseUrl.rawValue + ApiRoutes.contactSupport.rawValue
+        }
+    }
 }
+
+

@@ -1,7 +1,7 @@
 import Foundation
 
 public protocol GenericRequest {
-    var route: String { get }
+    var route: ControlKitItem { get }
     var itemId: String? { get set }
     var extraParameter: String? { get set }
     var httpMethod: HTTPMethod { get }

@@ -9,7 +9,7 @@ let controlKit_DeviceUUIDKey = "deviceUUID"
 public struct ActionRequest: GenericRequest {
     public var httpMethod: HTTPMethod
     public var body: [String : String]
-    public var route: String
+    public var route: ControlKitItem
     public var itemId: String?
     public var extraParameter: String?
     public var appId: String
