@@ -1,7 +1,7 @@
 import Foundation
 
 public class GenericService: BaseService,
-                      GenericServiceProtocol {
+                             GenericServiceProtocol {
     public override init() {
     }
     public func execute<T: GenericRequest, M: Codable>(request: T) async throws -> Result<M> {
