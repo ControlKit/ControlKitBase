@@ -23,7 +23,9 @@ public class GenericService: BaseService,
             for requestItem in request.body {
                 queryItems.append(URLQueryItem(name: "\(requestItem.key)", value: "\(requestItem.value)"))
             }
-            urlComponents.queryItems = queryItems
+            if queryItems.count > 0 {
+                urlComponents.queryItems = queryItems
+            }
         }
         guard let url = urlComponents.url else {
             print("Invalid URL")
