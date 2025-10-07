@@ -1,6 +1,6 @@
 import Foundation
 
-class BaseSerializer {
+public class BaseSerializer {
     static let shared = BaseSerializer()
     func serialize<T: Codable>(data: Data) -> Result<T> {
         let response = try? JSONDecoder().decode(T.self, from: data)

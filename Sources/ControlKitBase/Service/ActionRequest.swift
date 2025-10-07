@@ -5,7 +5,7 @@
 //  Created by Maziar Saadatfar on 9/1/25.
 //
 import Foundation
-let controlKit_DeviceUUIDKey = "deviceUUID"
+public let controlKit_DeviceUUIDKey = "deviceUUID"
 public struct ActionRequest: GenericRequest {
     public var route: ControlKitItem
     public var appId: String
