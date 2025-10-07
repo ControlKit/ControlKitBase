@@ -8,28 +8,28 @@
 import Foundation
 import UIKit
 
-extension NSObject {
+public extension NSObject {
     @objc static
     var nameOfClass: String {
         return NSStringFromClass(self).components(separatedBy: ".").last!
     }
 }
 
-extension UITableViewCell {
+public extension UITableViewCell {
     @objc
     static func reuseIdentifier() -> String {
         return self.nameOfClass
     }
 }
 
-extension UICollectionViewCell {
+public extension UICollectionViewCell {
     @objc
     static func reuseIdentifier() -> String {
         return self.nameOfClass
     }
 }
 
-extension UIView {
+public extension UIView {
     func setCurvedView(cornerRadius: CGFloat,
                        borderWidth: CGFloat , 
                        borderColor: UIColor,
@@ -114,7 +114,7 @@ public extension UIImage {
     }
 }
 
-extension UIImageView {
+public extension UIImageView {
     func networkImage(from url: URL, contentMode mode: ContentMode = .scaleAspectFit) {
         contentMode = mode
         URLSession.shared.dataTask(with: url) { data, response, error in
@@ -135,7 +135,7 @@ extension UIImageView {
     }
 }
 
-extension UIColor {
+public extension UIColor {
     // MARK: - Computed Properties
     public var toHex: String? {
         return toHex()
@@ -228,7 +228,7 @@ extension UIColor {
         self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: a)
     }
 }
-extension Bundle {
+public extension Bundle {
     var releaseVersionNumber: String? {
         return infoDictionary?["CFBundleShortVersionString"] as? String
     }
@@ -237,7 +237,7 @@ extension Bundle {
     }
 }
 
-extension String {
+public extension String {
     func heightWithConstrainedWidth(width: CGFloat, font: UIFont) -> CGFloat {
         let constraintRect = CGSize(width: width, height: .greatestFiniteMagnitude)
         let boundingBox = self.boundingRect(with: constraintRect, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedString.Key.font: font], context: nil)

@@ -1,13 +1,15 @@
 import Foundation
 
-protocol GenericRequest {
+public protocol GenericRequest {
     var route: String { get }
+    var itemId: String? { get set }
+    var extraParameter: String? { get set }
     var httpMethod: HTTPMethod { get }
-    var header: [String: String] { get set }
+    var headers: [String: String] { get }
     var body: [String: String] { get set }
 }
 
-struct HTTPMethod: RawRepresentable, Equatable, Hashable {
+public struct HTTPMethod: RawRepresentable, Equatable, Hashable {
     public static let connect = HTTPMethod(rawValue: "CONNECT")
     public static let delete = HTTPMethod(rawValue: "DELETE")
     public static let get = HTTPMethod(rawValue: "GET")

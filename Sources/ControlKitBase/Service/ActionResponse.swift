@@ -10,6 +10,5 @@ public struct ActionResponse: Codable {
 }
 public struct ActionModel: Codable {
     public let id: String
-    public let title: String?
 }
 
