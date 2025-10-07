@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol GenericServiceProtocol {
+public protocol GenericServiceProtocol {
     func execute<T: GenericRequest, M: Codable>(request: T) async throws-> Result<M>
 }
