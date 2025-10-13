@@ -44,8 +44,13 @@ public class GenericService: BaseService,
         let (data, response) = try await URLSession.shared.data(for: req)
         if (response as? HTTPURLResponse)?.statusCode ?? 0 >= 200 &&
             (response as? HTTPURLResponse)?.statusCode ?? 0 < 300 {
-            let result: Result<M> = BaseSerializer.shared.serialize(data: data)
-            return result
+            if (response as? HTTPURLResponse)?.statusCode == 204 {
+                return .noContent
+            }
+            else {
+                let result: Result<M> = BaseSerializer.shared.serialize(data: data)
+                return result
+            }
         } else {
             print("Invalid Response")
             let errorModel = NSError(domain: "Invalid Response",
@@ -74,5 +79,3 @@ public class GenericService: BaseService,
         }
     }
 }
-
-

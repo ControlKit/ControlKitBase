@@ -10,12 +10,15 @@ import Foundation
 public enum Result<Value> {
     case success(Value)
     case failure(Error)
+    case noContent
 }
 
 public extension Result {
     var isSuccess: Bool {
         switch self {
         case .success(_):
+            return true
+        case .noContent:
             return true
         case .failure(_):
             return false
@@ -26,6 +29,8 @@ public extension Result {
         switch self {
         case .success(let value):
             return value
+        case .noContent:
+            return nil
         case .failure(_):
             return nil
         }
@@ -34,6 +39,8 @@ public extension Result {
     var error: Error? {
         switch self {
         case .success(_):
+            return nil
+        case .noContent:
             return nil
         case .failure(let error):
             return error
@@ -47,6 +54,8 @@ public extension Result {
         case .success(let value):
             let newValue = transform(value)
             return Result<T>.success(newValue)
+        case .noContent:
+            return Result<T>.noContent
         case .failure(let error):
             return Result<T>.failure(error)
         }
@@ -56,6 +65,8 @@ public extension Result {
         switch self {
         case .success(let value):
             return transform(value)
+        case .noContent:
+            return Result<T>.noContent
         case .failure(let error):
             return Result<T>.failure(error)
         }
