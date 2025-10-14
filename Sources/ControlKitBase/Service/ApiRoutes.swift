@@ -9,11 +9,11 @@ import Foundation
 enum ApiRoutes: String {
     case baseUrl = "https://tauri.ir/"
     case forceUpdate = "api/force-updates"
-    case launchAlert = "api/launch-alert"
-    case inboxView = "api/inbox-view"
+    case launchAlert = "api/launch-alerts"
+    case inboxView = "api/inboxes"
     case voteView = "api/votes"
-    case netPromoterScore = "api/nps"
-    case contactSupport = "api/contact-support"
+    case netPromoterScore = "api/net-promoter-scores"
+    case contactSupport = "api/contacts"
     case agreement = "api/terms-and-conditions"
     
     var fullUrl: String {
