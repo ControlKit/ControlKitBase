@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 public extension NSObject {
     @objc static
@@ -161,11 +162,11 @@ public extension UIImageView {
 
 public extension UIColor {
     // MARK: - Computed Properties
-    public var toHex: String? {
+    var toHex: String? {
         return toHex()
     }
     // MARK: - From UIColor to String
-    public func toHex(alpha: Bool = false) -> String? {
+    func toHex(alpha: Bool = false) -> String? {
         guard let components = cgColor.components, components.count >= 3 else {
             return nil
         }
@@ -236,7 +237,7 @@ public extension UIColor {
         self.init(red: red, green: green, blue: blue, alpha: alpha)
     }
   
-    public convenience init(r red: Int, g green: Int, b blue: Int) {
+    convenience init(r red: Int, g green: Int, b blue: Int) {
         assert(red >= .zero && red <= 255, "Invalid red component")
         assert(green >= .zero && green <= 255, "Invalid green component")
         assert(blue >= .zero && blue <= 255, "Invalid blue component")
@@ -244,12 +245,110 @@ public extension UIColor {
         self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
     }
     
-    public convenience init(r red: Int, g green: Int, b blue: Int, a: CGFloat) {
+     convenience init(r red: Int, g green: Int, b blue: Int, a: CGFloat) {
         assert(red >= .zero && red <= 255, "Invalid red component")
         assert(green >= .zero && green <= 255, "Invalid green component")
         assert(blue >= .zero && blue <= 255, "Invalid blue component")
         
         self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: a)
+    }
+}
+
+public extension Color {
+    // MARK: - Computed Properties
+    var toHex: String? {
+        return toHex()
+    }
+    // MARK: - From UIColor to String
+    func toHex(alpha: Bool = false) -> String? {
+        if #available(iOS 14.0, *) {
+            guard let components = cgColor?.components, components.count >= 3 else {
+                return nil
+            }
+            let r = Float(components[0])
+            let g = Float(components[1])
+            let b = Float(components[2])
+            var a = Float(1.0)
+            if components.count >= 4 {
+                a = Float(components[3])
+            }
+            if alpha {
+                return String(format: "%02lX%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255), lroundf(a * 255))
+            } else {
+                return String(format: "%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255))
+            }
+        } else {
+            return nil
+        }
+    }
+    /**
+     The shorthand three-digit hexadecimal representation of color.
+     #RGB defines to the color #RRGGBB.
+     
+     - parameter hex3: Three-digit hexadecimal value.
+     - parameter alpha: 0.0 - 1.0. The default is 1.0.
+     */
+    private init(hex3: UInt16, alpha: CGFloat = 1) {
+        let divisor = CGFloat(15)
+        let red     = CGFloat((hex3 & 0xF00) >> 8) / divisor
+        let green   = CGFloat((hex3 & 0x0F0) >> 4) / divisor
+        let blue    = CGFloat( hex3 & 0x00F      ) / divisor
+        self.init(red: red, green: green, blue: blue, opacity: alpha)
+    }
+    /**
+     The shorthand four-digit hexadecimal representation of color with alpha.
+     #RGBA defines to the color #RRGGBBAA.
+     
+     - parameter hex4: Four-digit hexadecimal value.
+     */
+    private init(hex4: UInt16) {
+        let divisor = CGFloat(15)
+        let red     = CGFloat((hex4 & 0xF000) >> 12) / divisor
+        let green   = CGFloat((hex4 & 0x0F00) >>  8) / divisor
+        let blue    = CGFloat((hex4 & 0x00F0) >>  4) / divisor
+        let alpha   = CGFloat( hex4 & 0x000F       ) / divisor
+        self.init(red: red, green: green, blue: blue, opacity: alpha)
+    }
+    /**
+     The six-digit hexadecimal representation of color of the form #RRGGBB.
+     
+     - parameter hex6: Six-digit hexadecimal value.
+     */
+    private init(hex6: UInt32, alpha: CGFloat = 1) {
+        let divisor = CGFloat(255)
+        let red     = CGFloat((hex6 & 0xFF0000) >> 16) / divisor
+        let green   = CGFloat((hex6 & 0x00FF00) >>  8) / divisor
+        let blue    = CGFloat( hex6 & 0x0000FF       ) / divisor
+        self.init(red: red, green: green, blue: blue, opacity: alpha)
+    }
+    /**
+     The six-digit hexadecimal representation of color with alpha of the form #RRGGBBAA.
+     
+     - parameter hex8: Eight-digit hexadecimal value.
+     */
+    private init(hex8: UInt32) {
+        let divisor = CGFloat(255)
+        let red     = CGFloat((hex8 & 0xFF000000) >> 24) / divisor
+        let green   = CGFloat((hex8 & 0x00FF0000) >> 16) / divisor
+        let blue    = CGFloat((hex8 & 0x0000FF00) >>  8) / divisor
+        let alpha   = CGFloat( hex8 & 0x000000FF       ) / divisor
+        self.init(red: red, green: green, blue: blue, opacity: alpha)
+    }
+  
+    init(r red: Int, g green: Int, b blue: Int) {
+        assert(red >= .zero && red <= 255, "Invalid red component")
+        assert(green >= .zero && green <= 255, "Invalid green component")
+        assert(blue >= .zero && blue <= 255, "Invalid blue component")
+        
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, opacity: 1.0)
+    }
+    
+    init(r red: Int, g green: Int, b blue: Int, a: CGFloat) {
+        assert(red >= .zero && red <= 255, "Invalid red component")
+        assert(green >= .zero && green <= 255, "Invalid green component")
+        assert(blue >= .zero && blue <= 255, "Invalid blue component")
+        
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, opacity: a)
     }
 }
 public extension Bundle {
