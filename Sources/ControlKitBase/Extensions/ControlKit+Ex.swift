@@ -140,7 +140,7 @@ public extension UIImage {
 }
 
 public extension UIImageView {
-    func networkImage(from url: URL, placeHolder: UIImage, contentMode mode: ContentMode = .scaleAspectFit) {
+    func networkImage(from url: URL, placeHolder: UIImage?, contentMode mode: ContentMode = .scaleAspectFit) {
         contentMode = mode
         URLSession.shared.dataTask(with: url) { data, response, error in
             guard
@@ -159,7 +159,7 @@ public extension UIImageView {
             }
         }.resume()
     }
-    func networkImage(from link: String, placeHolder: UIImage, contentMode mode: ContentMode = .scaleAspectFit) {
+    func networkImage(from link: String, placeHolder: UIImage?, contentMode mode: ContentMode = .scaleAspectFit) {
         guard let url = URL(string: link) else { return }
         networkImage(from: url, placeHolder: placeHolder, contentMode: mode)
     }
